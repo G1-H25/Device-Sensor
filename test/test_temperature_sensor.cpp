@@ -1,6 +1,6 @@
 #include <unity.h>
-#include "../lib/TemperatureSensor/TemperatureSensor.h"
-#include "../include/Tmp36.h"
+#include "TemperatureSensor/TemperatureSensor.h"
+#include "Tmp36.h"
 
 using TemperatureSensor::Measurement;
 

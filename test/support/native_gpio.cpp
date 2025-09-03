@@ -1,12 +1,12 @@
 #ifndef ARDUINO
 #include <cstdint>
-#include "../lib/HardwareInterface/GPIO.h"
+#include "HardwareInterface/GPIO.h"
 
 namespace GPIO {
 
-Pin::Pin() {}
-Pin::Pin(GPIO::PinIndex) {}
-Pin::~Pin() {}
+Pin::Pin() noexcept = default;
+Pin::Pin(GPIO::PinIndex) noexcept = default;
+Pin::~Pin() noexcept = default;
 
 void Pin::pinMode(PinMode) {}
 void Pin::digitalWrite(DigitalValue) const noexcept {}

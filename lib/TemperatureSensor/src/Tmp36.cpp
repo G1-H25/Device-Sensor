@@ -1,8 +1,12 @@
-#include "../include/Tmp36.h"
+#include "../TemperatureSensor.h"
+#include "../../../include/Tmp36.h"
+#ifdef ARDUINO
 #include <Arduino.h>
+#else
+#include <cstdint>
+static inline std::uint32_t millis() { return 0; }
+#endif
 
-//! concrete implementation of the TemperatureSensor class using analog read and voltage conversion on Arduino R4 Wifi
-//! no humidity sensor available on just TMP36
 namespace TemperatureSensor {
     void Tmp36::begin() noexcept {
         pin_.pinMode(GPIO::PinMode::INPUT);

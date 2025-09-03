@@ -4,22 +4,6 @@
 #include <cstdint>
 
 namespace GPIO {
-    class Pin {
-        public:
-            Pin();
-            explicit Pin(PinIndex pin_index) noexcept : raw_pin_(static_cast<std::uint8_t>(pin_index)) {}
-            void pinMode(PinMode mode) const noexcept;
-            void digitalWrite(DigitalValue value) const noexcept;
-            void digitalRead(DigitalValue& value) const noexcept;
-            void analogRead(std::uint16_t& value) const noexcept;
-            void analogWrite(std::uint16_t value) const noexcept;
-            DigitalValue digitalRead() const noexcept;
-            std::uint16_t analogRead() const noexcept;
-            
-            ~Pin();
-        private:
-            std::uint8_t raw_pin_;
-    };
 
     enum class PinMode : std::uint8_t {
         INPUT,
@@ -34,7 +18,30 @@ namespace GPIO {
     };
 
     enum class PinIndex : std::uint8_t; //! implementation-defined elsewhere based on the hardware
-    
+
+    class Pin {
+        public:
+            //! default constructor
+            Pin() noexcept;
+
+            //! constructor with pin index
+            explicit Pin(PinIndex pin_index) noexcept;
+
+
+            //! set the mode of the pin
+            void pinMode(PinMode mode) const noexcept;
+            //! write to the pin
+            void digitalWrite(DigitalValue value) const noexcept;
+            void analogWrite(std::uint16_t value) const noexcept;
+            //! read from the pin
+            DigitalValue digitalRead() const noexcept;
+            std::uint16_t analogRead() const noexcept;
+            
+            ~Pin() = default;
+        private:
+            std::uint8_t raw_pin_; //! the raw pin number, to be passed to the hardware
+    };
+
     //! Configure analog conversion and PWM resolution for the platform
     void setAnalogReadResolution(std::uint8_t bits) noexcept;
     void setAnalogWriteResolution(std::uint8_t bits) noexcept;
@@ -52,11 +59,6 @@ namespace GPIO {
             //! postcondition: the pin is accessed
             Pin operator[](PinIndex index) const noexcept;
     };
-
-
-
-    //! GPIO::PinMap pins;
-    //! pins[GPIO::PinIndex::D3].digitalWrite(GPIO::DigitalValue::HIGH);
 }
 
 #endif // HARDWARE_INTERFACE_GPIO_H

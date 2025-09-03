@@ -1,7 +1,7 @@
 #include <Arduino.h>
-#include "../lib/HardwareInterface/GPIO.h"
+#include "HardwareInterface/GPIO.h"
 #include <ArduinoHardware.h>
-#include "../include/Tmp36.h"
+#include "Tmp36.h"
 
 static GPIO::PinMap pinMap;
 
@@ -15,7 +15,6 @@ void setup() {
 
 void loop() {
   temp_sensor.update();
-  //! print the head of the ring buffer
   if (temp_sensor.has_data()) {
     TemperatureSensor::Measurement m;
       if (temp_sensor.try_pop(m)) {

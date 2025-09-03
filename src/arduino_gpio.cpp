@@ -26,6 +26,9 @@ namespace GPIO {
         }
     }
 
+    PinMap::PinMap() {}
+    PinMap::~PinMap() {}
+
     Pin PinMap::operator[](GPIO::PinIndex index) const noexcept {
         return Pin(index);
     }

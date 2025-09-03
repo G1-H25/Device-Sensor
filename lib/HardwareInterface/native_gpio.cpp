@@ -1,6 +1,6 @@
 #ifndef ARDUINO
+#include "GPIO.h"
 #include <cstdint>
-#include "HardwareInterface/GPIO.h"
 
 namespace GPIO {
 
@@ -11,17 +11,14 @@ enum class PinIndex : std::uint8_t {
     NUM_PINS
 };
 
-Pin::Pin() noexcept = default;
-Pin::Pin(GPIO::PinIndex) noexcept = default;
-Pin::~Pin() noexcept = default;
+Pin::Pin() noexcept : raw_pin_(0) {}
+Pin::Pin(GPIO::PinIndex pin_index) noexcept : raw_pin_(static_cast<std::uint8_t>(pin_index)) {}
 
-void Pin::pinMode(PinMode) {}
-void Pin::digitalWrite(DigitalValue) const noexcept {}
-void Pin::digitalRead(DigitalValue& value) const noexcept { value = DigitalValue::LOW; }
-std::uint16_t Pin::analogRead() const noexcept { return 0; }
-void Pin::analogRead(std::uint16_t& value) const noexcept { value = 0; }
-void Pin::analogWrite(std::uint16_t) const noexcept {}
+void Pin::pinMode(PinMode) const noexcept {}
+void Pin::digitalWrite(DigitalValue value) const noexcept {}
+void Pin::analogWrite(std::uint16_t value) const noexcept {}
 DigitalValue Pin::digitalRead() const noexcept { return DigitalValue::LOW; }
+std::uint16_t Pin::analogRead() const noexcept { return 0; }
 
 PinMap::PinMap() {}
 PinMap::~PinMap() {}

@@ -19,7 +19,7 @@ namespace GPIO {
 		A0, // ADC
 		A1,
 		A2,
-		A3,
+		A3, // TMP36
 		A4,
 		A5,
         NUM_PINS

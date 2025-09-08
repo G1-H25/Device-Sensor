@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ main, development ]
   workflow_dispatch: # Manual trigger
+  schedule:
+    - cron: '0 13 * * 4'
 
 jobs:
   # Run all tests and checks
@@ -13,6 +15,7 @@ jobs:
     name: Test and Build
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    if: github.event_name != 'schedule'
     
     steps:
     - name: Checkout code
@@ -61,8 +64,7 @@ jobs:
       name: Weekly Smoke Test
       runs-on: ubuntu-latest
       timeout-minutes: 10
-      schedule:
-        - cron: '0 0 * * 1'
+      if: github.event_name == 'schedule'
       steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -82,3 +84,6 @@ jobs:
       
       - name: Run Smoke Tests
         run: pio test -e native_smoke
+      
+      - name: Build Arduino Firmware
+        run: pio run -e uno_r4_wifi

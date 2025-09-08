@@ -56,3 +56,27 @@ jobs:
         name: test-results
         path: .pio/testresults/**
         if-no-files-found: ignore
+
+    weekly-smoke-test:
+      name: Weekly Smoke Test
+      runs-on: ubuntu-latest
+      timeout-minutes: 10
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3'
+          
+      - name: Install PlatformIO
+        run: pip install platformio
+        
+      - name: Cache PlatformIO dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.platformio
+§
+    - name: Run Smoke Tests
+      run: pio test -e native_smoke

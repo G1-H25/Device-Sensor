@@ -1,3 +1,5 @@
+//! @file test_tmp36.cpp unit test for the Tmp36 class
+
 #include <unity.h>
 #include "TemperatureSensor/TemperatureSensor.h"
 #include "Tmp36.h"
@@ -9,11 +11,6 @@ void test_ring_buffer_basic_push_pop() {
 	GPIO::PinMap pins;
 	TemperatureSensor::Tmp36 sensor(pins[static_cast<GPIO::PinIndex>(0)]);
 	sensor.begin();
-
-	Measurement m{};
-	m.timestamp = 1;
-	m.temperature = 25.0f;
-	m.humidity = 0.0f;
 
 	// Act
 	sensor.read();

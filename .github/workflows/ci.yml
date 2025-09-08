@@ -61,6 +61,8 @@ jobs:
       name: Weekly Smoke Test
       runs-on: ubuntu-latest
       timeout-minutes: 10
+      schedule:
+        - cron: '0 0 * * 1'
       steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -77,6 +79,6 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.platformio
-§
-    - name: Run Smoke Tests
-      run: pio test -e native_smoke
+      
+      - name: Run Smoke Tests
+        run: pio test -e native_smoke

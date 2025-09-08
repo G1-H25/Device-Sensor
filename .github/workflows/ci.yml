@@ -60,7 +60,7 @@ jobs:
         path: .pio/testresults/**
         if-no-files-found: ignore
 
-    weekly-smoke-test:
+  weekly-smoke-test:
       name: Weekly Smoke Test
       runs-on: ubuntu-latest
       timeout-minutes: 10

@@ -1,11 +1,47 @@
 
 This directory is intended for PlatformIO Test Runner and project tests.
 
-Unit Testing is a software testing method by which individual units of
-source code, sets of one or more MCU program modules together with associated
-control data, usage procedures, and operating procedures, are tested to
-determine whether they are fit for use. Unit testing finds problems early
-in the development cycle.
+## Test Structure
+
+### Native Tests (Cross-platform)
+- **smoke/**: Basic functionality tests that verify components work without hardware dependencies
+- **unit/**: Individual component unit tests that can run on any platform
+- **integration/** (native): Component-level integration tests using native drivers
+
+These tests focus on:
+- Algorithm correctness
+- Data structure behavior
+- Component interactions at the API level
+- Mocked hardware interactions
+
+### Arduino-Only Tests
+- **integration/arduino_*.cpp**: Full application integration tests requiring Arduino hardware
+
+These tests require:
+- Arduino BLE hardware
+- GPIO pin access
+- Arduino timing services
+- Real sensor hardware
+
+## Running Tests
+
+### Native Tests
+```bash
+pio test -e native
+```
+
+### Arduino Tests
+```bash
+pio test -e arduino
+```
+
+## Test Philosophy
+
+Following the main program structure in `main.cpp`:
+- Native tests verify individual components and their interactions
+- Arduino tests verify the complete `SensorApp` application lifecycle
+- Tests follow Arrange-Act-Assert pattern
+- No repeating act-assert blocks within single tests
 
 More information about PlatformIO Unit Testing:
 - https://docs.platformio.org/en/latest/advanced/unit-testing/index.html

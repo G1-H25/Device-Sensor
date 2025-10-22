@@ -1,7 +1,7 @@
 #ifndef TMP36_H
 #define TMP36_H
 
-#include "../lib/TemperatureSensor/TemperatureSensor.h"
+#include "TemperatureSensor/TemperatureSensor.h"
 
 namespace TemperatureSensor {
     class Tmp36 : public TemperatureSensor {

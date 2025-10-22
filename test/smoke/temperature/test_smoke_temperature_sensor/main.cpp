@@ -1,7 +1,7 @@
 //! @file test_smoke_temperature_sensor.cpp
 //! @brief Automated smoke test for the temperature sensor
 
-#include <unity.h> 
+#include <unity.h>
 #include "TemperatureSensor/TemperatureSensor.h"
 #include "Tmp36.h"
 
@@ -12,10 +12,10 @@ void test_smoke_initialize_sensor() {
     // Arrange
     GPIO::PinMap pins;
     TemperatureSensor::Tmp36 sensor(pins[static_cast<GPIO::PinIndex>(17)]); // A3 for native
-    
+
     // Act
     sensor.begin();
-    
+
     // Assert
     TEST_ASSERT_TRUE(static_cast<bool>(sensor));
     TEST_ASSERT_FALSE(sensor.has_data());
@@ -27,10 +27,10 @@ void test_smoke_measurement_pipeline() {
     GPIO::PinMap pins;
     TemperatureSensor::Tmp36 sensor(pins[static_cast<GPIO::PinIndex>(17)]);
     sensor.begin();
-    
+
     // Act
     sensor.update();
-    
+
     // Assert
     TEST_ASSERT_TRUE(sensor.has_data());
 }
@@ -40,10 +40,10 @@ void test_smoke_error_handling() {
     GPIO::PinMap pins;
     TemperatureSensor::Tmp36 sensor(pins[static_cast<GPIO::PinIndex>(17)]);
     sensor.begin();
-    
+
     // Act
     sensor.update();
-    
+
     // Assert
     TEST_ASSERT_TRUE(sensor.has_data());
 }
@@ -53,7 +53,7 @@ void test_smoke_ring_buffer_readout() {
     GPIO::PinMap pins;
     TemperatureSensor::Tmp36 sensor(pins[static_cast<GPIO::PinIndex>(17)]);
     sensor.begin();
-    
+
     // Act
     sensor.update();
 

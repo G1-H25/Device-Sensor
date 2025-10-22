@@ -201,7 +201,7 @@ void test_ring_buffer_data_integrity() {
 	Measurement out{};
 	bool pop_success = sensor.try_pop(out);
 	TEST_ASSERT_TRUE(pop_success);
-	
+
 	// Assert - Verify the measurement has reasonable values (not garbage)
 	TEST_ASSERT_TRUE(out.timestamp >= 0);
 	// Note: Native GPIO returns 0, so temperature will be calculated as (0 * 5.0f / 1023.0f - 0.5f) * 100.0f = -50.0f
@@ -242,6 +242,7 @@ void test_ring_buffer_bounds_safety() {
 	TEST_ASSERT_EQUAL_UINT32(0, sensor.available());
 	TEST_ASSERT_FALSE(sensor.has_data());
 }
+
 
 void setUp() {}
 void tearDown() {}

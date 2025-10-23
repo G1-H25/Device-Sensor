@@ -1,20 +1,10 @@
 //! @file Tmp36.cpp
 //! @brief Concrete implementation of TemperatureSensor using TMP36
 
-#include "TemperatureSensor/TemperatureSensor.h"
-#include "jenlib/time/Time.h"
+#include "Tmp36.h"
+#include <jenlib/time/Time.h>
 
 namespace TemperatureSensor {
-    class Tmp36 : public TemperatureSensor {
-    public:
-        explicit Tmp36(GPIO::Pin pin) noexcept : TemperatureSensor(pin) {}
-        virtual ~Tmp36() noexcept = default;
-        void begin() noexcept override;
-        void update() noexcept override;
-        void read() noexcept override;
-        void write() noexcept override;
-        void end() noexcept override;
-    };
 
     void Tmp36::begin() noexcept {
         pin_.pinMode(GPIO::PinMode::INPUT);

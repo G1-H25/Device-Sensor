@@ -1,8 +1,8 @@
 #ifndef TEMPERATURE_SENSOR_H
 #define TEMPERATURE_SENSOR_H
 
-#include "jenlib/gpio/GPIO.h"
-#include "jenlib/measurement/Measurement.h"
+#include <jenlib/gpio/GPIO.h>
+#include <jenlib/measurement/Measurement.h>
 #include <cstdint>
 #include <array>
 #include <cstddef>

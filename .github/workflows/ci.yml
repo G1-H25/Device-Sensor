@@ -16,42 +16,57 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: github.event_name != 'schedule'
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3'
-        
+
     - name: Install PlatformIO
       run: pip install platformio
-        
+
+    - name: Clear PlatformIO cache (force fresh build)
+      run: |
+        rm -rf ~/.platformio/lib || true
+        rm -rf ~/.platformio/packages || true
+        rm -rf .pio || true
+
     - name: Cache PlatformIO dependencies
       uses: actions/cache@v3
       with:
-        path: ~/.platformio
-        key: ${{ runner.os }}-pio-${{ hashFiles('platformio.ini') }}
+        path: |
+          ~/.platformio
+          .pio
+        key: ${{ runner.os }}-pio-${{ hashFiles('platformio.ini', 'lib/jenlib/include/jenlib/**/*.h') }}
         restore-keys: |
           ${{ runner.os }}-pio-
-          
+
+    - name: Verify platformio.ini configuration
+      run: |
+        echo "=== platformio.ini content ==="
+        cat platformio.ini
+        echo "=== Build flags check ==="
+        grep "build_flags" platformio.ini
+
     - name: Run All Tests
-      run: pio test -e native_all
-      
+      run: pio test -e native_all -vv
+
     - name: Build Arduino Firmware
       run: pio run -e uno_r4_wifi
-      
+
     - name: Install cpplint
       run: pip install cpplint
-      
+
     - name: Run Code Style Check
       run: |
         echo "Checking C++ code style..."
         cpplint --recursive --extensions=cpp,h src/ lib/ include/ || true
         echo "Code style check completed"
-        
+
     - name: Upload Test Results
       uses: actions/upload-artifact@v4
       if: always()
@@ -68,22 +83,33 @@ jobs:
       steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3'
-          
+
       - name: Install PlatformIO
         run: pip install platformio
-        
+
+      - name: Clear PlatformIO cache (force fresh build)
+        run: |
+          rm -rf ~/.platformio/lib || true
+          rm -rf ~/.platformio/packages || true
+          rm -rf .pio || true
+
       - name: Cache PlatformIO dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.platformio
-      
+          path: |
+            ~/.platformio
+            .pio
+          key: ${{ runner.os }}-pio-${{ hashFiles('platformio.ini', 'lib/jenlib/include/jenlib/**/*.h') }}
+          restore-keys: |
+            ${{ runner.os }}-pio-
+
       - name: Run Smoke Tests
         run: pio test -e native_smoke
-      
+
       - name: Build Arduino Firmware
         run: pio run -e uno_r4_wifi

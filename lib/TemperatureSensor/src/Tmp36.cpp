@@ -1,7 +1,7 @@
 //! @file Tmp36.cpp
 //! @brief Concrete implementation of TemperatureSensor using TMP36
 
-#include "Tmp36.h"
+#include "../Tmp36.h"
 #include <jenlib/time/Time.h>
 
 namespace TemperatureSensor {

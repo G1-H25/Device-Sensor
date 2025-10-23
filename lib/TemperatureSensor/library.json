@@ -1,0 +1,22 @@
+{
+  "name": "TemperatureSensor",
+  "version": "1.0.0",
+  "description": "Temperature sensor library using TMP36",
+  "keywords": ["temperature", "sensor", "tmp36"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/G1-H25/Device-Sensor.git"
+  },
+  "authors": [
+    {
+      "name": "Jennifer Gott",
+      "email": "jennifer.gott@chasacademy.se"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jenlib": "*"
+  },
+  "frameworks": ["*"],
+  "platforms": ["*"]
+}

@@ -1,19 +1,15 @@
 #ifndef TEMPERATURE_SENSOR_H
 #define TEMPERATURE_SENSOR_H
 
-#include "../HardwareInterface/GPIO.h"
+#include <jenlib/gpio/GPIO.h>
+#include <jenlib/measurement/Measurement.h>
 #include <cstdint>
 #include <array>
 #include <cstddef>
 
 namespace TemperatureSensor {
 
-    //! @brief measurement struct
-    struct Measurement {
-        std::uint32_t timestamp;
-        float temperature;
-        float humidity;
-    };
+    using Measurement = measurement::Measurement;
 
     //! @brief ring buffer for storing measurements
     struct RingBuffer {

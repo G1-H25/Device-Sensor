@@ -203,11 +203,11 @@ void test_ring_buffer_data_integrity() {
 	TEST_ASSERT_TRUE(pop_success);
 
 	// Assert - Verify the measurement has reasonable values (not garbage)
-	TEST_ASSERT_TRUE(out.timestamp >= 0);
-	// Note: Native GPIO returns 0, so temperature will be calculated as (0 * 5.0f / 1023.0f - 0.5f) * 100.0f = -50.0f
-	// This is within the TMP36 range of -40°C to +125°C
-	TEST_ASSERT_TRUE(out.temperature >= -60.0f && out.temperature <= 125.0f); // Allow for native GPIO 0 value
-	TEST_ASSERT_EQUAL_FLOAT(0.0f, out.humidity); // TMP36 doesn't measure humidity
+	TEST_ASSERT_TRUE(out.timestamp_ms >= 0);
+	// Should be caculated from native 0 result from pin = -50c
+	// Check within bounds of -60c to 125c to allow real sensor values
+	TEST_ASSERT_TRUE(out.temperature_c >= -60.0f && out.temperature_c <= 125.0f);
+	TEST_ASSERT_EQUAL_FLOAT(0.0f, out.humidity_bp);
 }
 
 void test_ring_buffer_bounds_safety() {

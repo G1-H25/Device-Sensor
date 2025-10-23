@@ -49,8 +49,8 @@ jobs:
       run: |
         echo "=== platformio.ini content ==="
         cat platformio.ini
-        echo "=== Build flags check ==="
-        grep "build_flags" platformio.ini
+        echo "=== Build src filter check ==="
+        grep "build_src_filter" platformio.ini
 
     - name: Run All Tests
       run: pio test -e native_all -vv

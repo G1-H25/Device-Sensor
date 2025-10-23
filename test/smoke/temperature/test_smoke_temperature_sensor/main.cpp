@@ -61,9 +61,9 @@ void test_smoke_ring_buffer_readout() {
     TEST_ASSERT_EQUAL_UINT32(1, sensor.available());
     TemperatureSensor::Measurement m;
     TEST_ASSERT_TRUE(sensor.try_pop(m));
-    TEST_ASSERT_EQUAL_FLOAT(m.temperature, -50.0f);
-    TEST_ASSERT_EQUAL_FLOAT(m.humidity, 0.0f);
-    TEST_ASSERT_EQUAL_UINT32(m.timestamp, 0);
+    TEST_ASSERT_EQUAL_FLOAT(m.temperature_c, -50.0f);
+    TEST_ASSERT_EQUAL_FLOAT(m.humidity_bp, 0.0f);
+    TEST_ASSERT_EQUAL_UINT32(m.timestamp_ms, 0);
     TEST_ASSERT_FALSE(sensor.has_data());
     TEST_ASSERT_EQUAL_UINT32(0, sensor.available());
 }
